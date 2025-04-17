@@ -1,11 +1,22 @@
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import App from './App'
-import HomeBase from './pages/HomeBase'
-//import UiUx from './pages/UiUx'
-import ErrorPage from './pages/Error'
+import ReactDOM from 'react-dom/client'; 
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import App from './App';
+import HomeBase from './pages/HomeBase';
+// import UiUx from './pages/UiUx'
+import ErrorPage from './pages/Error';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider
+} from '@apollo/client';
 
-{}
+
+const client = new ApolloClient({
+  uri: '/graphql',
+  cache: new InMemoryCache(),
+});
+
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -13,12 +24,20 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomeBase /> },
-      //{ path: '/uiux', element: <UiUx /> }
-    ]
-  }
+      // { path: '/uiux', element: <UiUx /> }
+    ],
+  },
 ]);
 
+//  define rootElement prior to using it
 const rootElement = document.getElementById('root');
+
 if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
+  ReactDOM.createRoot(rootElement).render(
+    <ApolloProvider client={client}>
+      <RouterProvider router={router} />
+    </ApolloProvider>
+  );
+} else {
+  console.error("Root element not found.");
 }
