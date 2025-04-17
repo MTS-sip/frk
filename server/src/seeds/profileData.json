@@ -1,0 +1,52 @@
+{
+    "user": {
+      "username": "SlapHappy",
+      "password": "password",
+      "budget": [
+        {
+          "category": "Income",
+          "subcategories": []
+        },
+        {
+          "category": "Housing",
+          "subcategories": [
+            { "name": "Mortgage", "amount": 0 },
+            { "name": "Insurance", "amount": 0 },
+            { "name": "Maintenance", "amount": 0 }
+          ]
+        },
+        {
+          "category": "Healthcare",
+          "subcategories": [
+            { "name": "Medical Insurance", "amount": 0 },
+            { "name": "Dental Care", "amount": 0 },
+            { "name": "Prescriptions", "amount": 0 }
+          ]
+        },
+        {
+          "category": "R&R",
+          "subcategories": [
+            { "name": "Travel", "amount": 0 },
+            { "name": "Gym Membership", "amount": 0 },
+            { "name": "Streaming Subscription", "amount": 0 }
+          ]
+        },
+        {
+          "category": "Food",
+          "subcategories": [
+            { "name": "Groceries", "amount": 0 },
+            { "name": "Take-out", "amount": 0 },
+            { "name": "Restaurant", "amount": 0 }
+          ]
+        },
+        {
+          "category": "Transportation",
+          "subcategories": [
+            { "name": "Train fare", "amount": 0 },
+            { "name": "Car Payment", "amount": 0 },
+            { "name": "Parking", "amount": 0 }
+          ]
+        }
+      ]
+    }
+  }
