@@ -10,10 +10,11 @@ import {
   ApolloProvider
 } from '@apollo/client';
 
-
+//Render deployment
+console.log("GraphQL URI is:", import.meta.env.VITE_GRAPHQL_URI);
 const client = new ApolloClient({
-  uri: '/graphql',
-  cache: new InMemoryCache(),
+  uri: import.meta.env.VITE_GRAPHQL_URI || '/graphql',
+  cache: new InMemoryCache()
 });
 
 
