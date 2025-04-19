@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import db from './config/connection.js';
 
 // Import the ApolloServer class
@@ -24,6 +25,11 @@ const startApolloServer = async () => {
 
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
+
+  app.use(cors({
+    origin: 'https://frk-3w59.onrender.com',
+    credentials: true,
+  }));
 
   app.use('/graphql', expressMiddleware(server as any));
 
