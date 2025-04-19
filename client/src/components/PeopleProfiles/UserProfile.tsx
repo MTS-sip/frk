@@ -5,7 +5,7 @@ import { Card, Button } from 'semantic-ui-react';
 interface UserProfileProps {
   user: {
     name: string;
-    email: string;
+    password: string;
   };
   onLogout: () => void;
 }
@@ -15,7 +15,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onLogout }) => {
     <Card>
       <Card.Content>
         <Card.Header>{user.name}</Card.Header>
-        <Card.Meta>{user.email}</Card.Meta>
+        <Card.Meta>{user.password}</Card.Meta>
       </Card.Content>
       <Card.Content extra>
         <Button basic color='green' onClick={onLogout}>Logout</Button>
