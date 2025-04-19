@@ -1,4 +1,6 @@
 import express from 'express';
+import cors from 'cors';
+import path from 'path';
 import db from './config/connection.js';
 
 // Import the ApolloServer class
@@ -25,7 +27,20 @@ const startApolloServer = async () => {
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
+  app.use(cors({
+    origin: 'https://frk-3w59.onrender.com',
+    credentials: true,
+  }));
+
   app.use('/graphql', expressMiddleware(server as any));
+
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../client/dist')));
+
+    app.get('*', (_req, res) => {
+      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    });
+  }
 
   app.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
