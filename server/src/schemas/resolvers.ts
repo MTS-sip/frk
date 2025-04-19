@@ -13,6 +13,19 @@ const resolvers = {
       }
       throw new AuthenticationError('User not authenticated');
     },
+
+    getBudget: async (_parent: any, _args: any, context: IUserContext) => {
+      if (!context.user) {
+        throw new AuthenticationError('User not authenticated');
+      }
+
+      const user = await User.findById(context.user._id);
+      if (!user || !user.budget) {
+        throw new Error('User or budget not found');
+      }
+
+      return user.budget;
+    },
   },
 
   Mutation: {
@@ -28,6 +41,22 @@ const resolvers = {
 
       const token = signToken(user.username, user._id);
       return { token, user };
+    },
+
+    signup: async (
+      _parent: any,
+      { username, password }: { username: string; password: string }
+    ): Promise<{ token: string; user: IUserDocument }> => {
+      const existing = await User.findOne({ username });
+      if (existing) {
+        throw new Error('Username already taken');
+      }
+
+      const newUser = new User({ username, password });
+      await newUser.save();
+
+      const token = signToken(newUser.username, newUser._id);
+      return { token, user: newUser };
     },
 
     updateSubcategory: async (
@@ -56,7 +85,6 @@ const resolvers = {
       if (existingSubcategory) {
         existingSubcategory.amount = amount;
       } else {
-        //  Cast to ISubcategory to satisfy TypeScript
         const newSubcategory = { name, amount } as ISubcategory;
         category.subcategories.push(newSubcategory);
       }
