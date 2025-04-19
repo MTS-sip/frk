@@ -1,6 +1,5 @@
 import type IUserContext from '../interfaces/UserContext.js';
 import type IUserDocument from '../interfaces/UserDocument.js';
-import { Category } from '../models/index.js';
 import { User } from '../models/index.js';
 import { signToken, AuthenticationError } from '../services/auth-service.js';
 
@@ -28,30 +27,48 @@ const resolvers = {
       return { token, user };
     },
     updateSubcategory: async (
-      _: any,
+      _parent: any,
       {
-        categoryId,
+        categoryName,
         subcategoryInput: { name, amount },
-      }: { categoryId: string; subcategoryInput: { name: string; amount: number } }
+      }: { categoryName: string; subcategoryInput: { name: string; amount: number } },
+      context: IUserContext
     ) => {
-      const category = await Category.findById(categoryId);
+      if (!context.user) {
+        throw new AuthenticationError('User not authenticated');
+      }
+    
+      const user = await User.findById(context.user._id);
+    
+      if (!user) {
+        throw new Error('User not found');
+      }
+    
+      if (!user.budget) {
+        throw new Error('User has no budget');
+      }
+    
+      // Find the category by name
+      const category = user.budget.find(
+        (cat: any) => cat.name === categoryName
+      );
+    
       if (!category) {
         throw new Error('Category not found');
       }
-
+    
+      // Find if the subcategory already exists
       const existingSubcategory = category.subcategories.find(
-        (subcat) => subcat.name === name
+        (subcat: any) => subcat.name === name
       );
-
+    
       if (existingSubcategory) {
-        // Update amount if subcategory exists
         existingSubcategory.amount = amount;
       } else {
-        // Add new subcategory
-        category.subcategories.push({ name, amount } as any);
+        category.subcategories.push({ name, amount });
       }
-
-      await category.save();
+    
+      await user.save();
       return category;
     },
   },
