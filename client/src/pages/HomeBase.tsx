@@ -16,7 +16,7 @@ const HomeBase: React.FC = () => {
     Food: 0,
     Transpo: 0
   });
-
+ console.log(data)
   useEffect(() => {
     if (data && data.budget) {
       setBudgetData(data.budget);
