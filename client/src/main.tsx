@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import HomeBase from './pages/HomeBase';
-// import UiUx from './pages/UiUx'
+import UiUx from './pages/UiUx'
 import ErrorPage from './pages/Error';
 import {
   ApolloClient,
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomeBase /> },
-      // { path: '/uiux', element: <UiUx /> }
+      { path: '/uiux', element: <UiUx /> }
     ],
   },
 ]);
