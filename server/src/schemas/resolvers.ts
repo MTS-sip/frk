@@ -3,6 +3,7 @@ import type IUserDocument from '../interfaces/UserDocument.js';
 import { User } from '../models/index.js';
 import { signToken, AuthenticationError } from '../services/auth-service.js';
 import type { ISubcategory } from '../models/Budget.js';
+import type { ICategory } from '../models/Budget.js';
 
 const resolvers = {
   Query: {
@@ -14,7 +15,11 @@ const resolvers = {
       throw new AuthenticationError('User not authenticated');
     },
 
-    getBudget: async (_parent: any, _args: any, context: IUserContext) => {
+    getBudget: async (
+      _parent: unknown,
+      _args: Record<string, unknown>,
+      context: IUserContext
+    ): Promise<ICategory[]> => {
       if (!context.user) {
         throw new AuthenticationError('User not authenticated');
       }

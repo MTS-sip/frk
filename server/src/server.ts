@@ -4,12 +4,11 @@ import path from 'path';
 import db from './config/connection.js';
 import { fileURLToPath } from 'url';
 
-// Import the ApolloServer class
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 
-// Import the two parts of a GraphQL schema
 import { typeDefs, resolvers } from './schemas/index.js';
+import { authMiddleware } from './services/auth-service.js'; // ✅ context JWT decoder
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,9 +18,7 @@ const server = new ApolloServer({
   resolvers,
 });
 
-// Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async () => {
-
   await server.start();
   await db();
 
@@ -36,7 +33,10 @@ const startApolloServer = async () => {
     credentials: true,
   }));
 
-  app.use('/graphql', expressMiddleware(server as any));
+  // ✅ Attach context from JWT for resolvers
+  app.use('/graphql', expressMiddleware(server as any, {
+    context: async ({ req }) => authMiddleware(req),
+  }));
 
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../../client/dist')));
@@ -52,5 +52,4 @@ const startApolloServer = async () => {
   });
 };
 
-// Call the async function to start the server
 startApolloServer();
