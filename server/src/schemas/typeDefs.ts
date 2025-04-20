@@ -1,14 +1,13 @@
 import { gql } from 'graphql-tag';
 
 const typeDefs = gql`
-
   type Subcategory {
     name: String!
     amount: Float!
   }
 
   type Category {
-    id: ID
+    id: ID!
     name: String!
     subcategories: [Subcategory!]!
   }
@@ -40,7 +39,6 @@ const typeDefs = gql`
     signup(username: String!, password: String!): Auth
     updateSubcategory(categoryName: String!, subcategoryInput: SubcategoryInput!): Category!
   }
-
 `;
 
 export default typeDefs;

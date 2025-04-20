@@ -1,8 +1,11 @@
 import ReactDOM from 'react-dom/client'; 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
+import RequireAuth from './utils/RequireAuth';
 import HomeBase from './pages/HomeBase';
 import UiUx from './pages/UiUx'
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 import ErrorPage from './pages/Error';
 import {
   ApolloClient,
@@ -35,22 +38,17 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-/*
-const client = new ApolloClient({
-  uri: import.meta.env.VITE_GRAPHQL_URI || '/graphql',
-  cache: new InMemoryCache()
-});
-*/
-
-
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <HomeBase /> },
-      { path: '/uiux', element: <UiUx /> }
+      { index: true, element: <RequireAuth><HomeBase /></RequireAuth> },
+      { path: '/uiux', element: <RequireAuth><UiUx /></RequireAuth> },
+      { path: '/signup', element: <Signup /> },
+      { path: '/login', element: <Login /> },
+ 
     ],
   },
 ]);
