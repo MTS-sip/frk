@@ -19,17 +19,19 @@ const App: React.FC = () => {
         </Menu.Item>
        
        {/* Right aligned signup and logout buttons */}
-        <Menu.Menu position="right">
+         {/* How to get button to hash and work wrapped in link*/}
+         <Menu.Menu position="right">
           <Menu.Item>
             <Link to="/signup">
-              Sign up
+              <Button basic color="green">Sign up</Button>
             </Link>
           </Menu.Item>
           <Menu.Item>
-           Logout
+            <Button basic color="green">Logout</Button>
           </Menu.Item>
         </Menu.Menu>
       </Menu>
+        
         
         {/* Main content area with light green background */} 
       <Container style={{ backgroundColor: '#d0f0c0', minHeight: '100vh', padding: '2em' }}>
