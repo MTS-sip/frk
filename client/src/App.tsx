@@ -22,11 +22,11 @@ const App: React.FC = () => {
         <Menu.Menu position="right">
           <Menu.Item>
             <Link to="/signup">
-              <Button basic color="green">Sign up</Button>
+              Sign up
             </Link>
           </Menu.Item>
           <Menu.Item>
-            <Button basic color="green">Logout</Button>
+           Logout
           </Menu.Item>
         </Menu.Menu>
       </Menu>
