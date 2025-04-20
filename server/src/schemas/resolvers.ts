@@ -34,11 +34,20 @@ const resolvers = {
       { username, password }: { username: string; password: string }
     ): Promise<{ token: string; user: IUserDocument }> => {
       const user = await User.findOne({ username });
-
+  
+      // DEBUG LOGIN   
+      console.log("Login attempt:", username);
+      console.log("User found:", !!user);
+      if (user) {
+        console.log("Password match?", await user.isCorrectPassword(password));
+      }
+      // end of temporary debug
+    
+  
       if (!user || !(await user.isCorrectPassword(password))) {
         throw new AuthenticationError('Invalid credentials');
       }
-
+  
       const token = signToken(user.username, user._id);
       return { token, user };
     },
