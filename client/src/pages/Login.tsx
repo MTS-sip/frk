@@ -43,7 +43,7 @@ const Login: React.FC = () => {
       <Form.Input
         label="Password"
         name="password"
-        type="password"
+        type="text"
         value={formState.password}
         onChange={handleChange}
         required
