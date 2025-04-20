@@ -32,7 +32,7 @@ const startApolloServer = async () => {
   app.use(express.json());
 
   app.use(cors({
-    origin: 'https://frk-3w59.onrender.com',
+    origin: ['https://frk-3w59.onrender.com', 'http://localhost:3080'],
     credentials: true,
   }));
 
