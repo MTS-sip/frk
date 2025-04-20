@@ -1,7 +1,6 @@
 import { gql } from 'graphql-tag';
 
 const typeDefs = gql`
-
   type Subcategory {
     name: String!
     amount: Float!
@@ -32,18 +31,14 @@ const typeDefs = gql`
 
   type Query {
     me: User
-  }
-
-  input SubcategoryInput {
-    name: String!
-    amount: Float!
+    getBudget: [Category!]!
   }
 
   type Mutation {
     login(username: String!, password: String!): Auth
-    updateSubcategory(categoryId: ID!, subcategoryInput: SubcategoryInput!): Category!
+    signup(username: String!, password: String!): Auth
+    updateSubcategory(categoryName: String!, subcategoryInput: SubcategoryInput!): Category!
   }
-
 `;
 
 export default typeDefs;

@@ -17,11 +17,26 @@ const HomeBase: React.FC = () => {
     Transpo: 0
   });
  console.log(data)
-  useEffect(() => {
-    if (data && data.budget) {
-      setBudgetData(data.budget);
-    }
-  }, [data]);
+ useEffect(() => {
+  if (data && data.getBudget) {
+    const categoryMap: Record<string, number> = {};
+    data.getBudget.forEach((cat: any) => {
+      categoryMap[cat.name] = cat.subcategories.reduce(
+        (sum: number, sub: any) => sum + sub.amount,
+        0
+      );
+    });
+
+    setBudgetData({
+      Income: categoryMap['Income'] || 0,
+      Housing: categoryMap['Housing'] || 0,
+      Healthcare: categoryMap['Healthcare'] || 0,
+      Rnr: categoryMap['Rnr'] || 0,
+      Food: categoryMap['Food'] || 0,
+      Transpo: categoryMap['Transpo'] || 0
+    });
+  }
+}, [data]);
 
   // Modal for adding subcategory
   const [modalOpen, setModalOpen] = useState(false);
