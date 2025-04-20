@@ -7,7 +7,17 @@ import InputField from '../components/Common/InputField';
 import SaveButton from '../components/Common/SaveButton';
 
 const HomeBase: React.FC = () => {
-  const { loading, error, data } = useQuery(GET_BUDGET);
+  const { loading, error, data, refetch } = useQuery(GET_BUDGET, {
+    fetchPolicy: 'network-only',
+  });
+  
+  useEffect(() => {
+    const token = localStorage.getItem('id_token');
+    if (token) {
+      refetch();
+    }
+  }, []);
+
   const [budgetData, setBudgetData] = useState({
     Income: 0,
     Housing: 0,
@@ -16,6 +26,7 @@ const HomeBase: React.FC = () => {
     Food: 0,
     Transpo: 0
   });
+  
  console.log(data)
  useEffect(() => {
   if (data && data.getBudget) {
