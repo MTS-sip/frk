@@ -9,7 +9,7 @@ const seedUsers = async () => {
   
 
 for (const user of users) {
-  const doc = await User.insertOne (user);
+  await User.insertOne(user);
  
 }
   console.log('Seed complete!');

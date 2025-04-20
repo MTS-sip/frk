@@ -4,6 +4,7 @@ import { LOGIN_USER } from '../utils/mutations';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Message } from 'semantic-ui-react';
 
+
 const Login: React.FC = () => {
   const [formState, setFormState] = useState({ username: '', password: '' });
   const [login, { error }] = useMutation(LOGIN_USER);
