@@ -33,6 +33,8 @@ const Login: React.FC = () => {
       <Form.Input
         label="Username"
         name="username"
+        type="text"
+        placeholder="Enter your username"
         value={formState.username}
         onChange={handleChange}
         required
