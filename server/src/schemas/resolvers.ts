@@ -2,8 +2,7 @@ import type IUserContext from '../interfaces/UserContext.js';
 import type IUserDocument from '../interfaces/UserDocument.js';
 import { User } from '../models/index.js';
 import { signToken, AuthenticationError } from '../services/auth-service.js';
-import type { ISubcategory } from '../models/Budget.js';
-import type { ICategory } from '../models/Budget.js';
+import type { ISubcategory, ICategory } from '../models/Budget.js';
 
 const resolvers = {
   Query: {
@@ -15,11 +14,7 @@ const resolvers = {
       throw new AuthenticationError('User not authenticated');
     },
 
-    getBudget: async (
-      _parent: unknown,
-      _args: Record<string, unknown>,
-      context: IUserContext
-    ): Promise<ICategory[]> => {
+    getBudget: async (_parent: unknown, _args: Record<string, unknown>, context: IUserContext): Promise<ICategory[]> => {
       if (!context.user) {
         throw new AuthenticationError('User not authenticated');
       }
@@ -31,6 +26,23 @@ const resolvers = {
 
       return user.budget;
     },
+
+    getBudgetSummary: async (_parent: unknown, _args: Record<string, unknown>, context: IUserContext) => {
+      if (!context.user) throw new AuthenticationError('User not authenticated');
+
+      const user = await User.findById(context.user._id);
+      if (!user || !user.budget) throw new Error('User or budget not found');
+
+      const total = user.budget.reduce((acc, category) => {
+        const categoryTotal = category.subcategories.reduce((sum, sub) => sum + sub.amount, 0);
+        return acc + categoryTotal;
+      }, 0);
+
+      return {
+        categories: user.budget,
+        total,
+      };
+    }
   },
 
   Mutation: {
@@ -39,20 +51,18 @@ const resolvers = {
       { username, password }: { username: string; password: string }
     ): Promise<{ token: string; user: IUserDocument }> => {
       const user = await User.findOne({ username });
-  
-      // DEBUG LOGIN   
+
+      // Debug output
       console.log("Login attempt:", username);
       console.log("User found:", !!user);
       if (user) {
         console.log("Password match?", await user.isCorrectPassword(password));
       }
-      // end of temporary debug
-    
-  
+
       if (!user || !(await user.isCorrectPassword(password))) {
         throw new AuthenticationError('Invalid credentials');
       }
-  
+
       const token = signToken(user.username, user._id);
       return { token, user };
     },
@@ -65,7 +75,7 @@ const resolvers = {
       if (existing) {
         throw new Error('Username already taken');
       }
-    
+
       const defaultCategories = [
         { name: 'Income', subcategories: [] },
         { name: 'Housing', subcategories: [] },
@@ -74,19 +84,14 @@ const resolvers = {
         { name: 'Food', subcategories: [] },
         { name: 'Transpo', subcategories: [] }
       ];
-    
-      const newUser = new User({
-        username,
-        password,
-        budget: defaultCategories
-      });
-    
+
+      const newUser = new User({ username, password, budget: defaultCategories });
       await newUser.save();
-    
+
       const token = signToken(newUser.username, newUser._id);
       return { token, user: newUser };
-    }, 
-    
+    },
+
     updateSubcategory: async (
       _parent: any,
       {
