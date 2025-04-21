@@ -7,9 +7,9 @@ const seedUsers = async () => {
   await User.deleteMany();
 
   
-
 for (const user of users) {
-  await User.insertOne(user);
+  const newUser = new User(user);
+  await newUser.save();   
  
 }
   console.log('Seed complete!');
