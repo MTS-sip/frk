@@ -65,10 +65,10 @@ const resolvers = {
       if (existing) {
         throw new Error('Username already taken');
       }
-
+    
       const newUser = new User({ username, password });
-      await newUser.save();
-
+      await newUser.save(); //  triggers password hashing pre('save') Sally 
+    
       const token = signToken(newUser.username, newUser._id);
       return { token, user: newUser };
     },
