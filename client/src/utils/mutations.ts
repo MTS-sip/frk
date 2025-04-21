@@ -35,8 +35,29 @@ export const ADD_SUBCATEGORY = gql`
   }
 `;
 
+export const UPDATE_SUBCATEGORY = gql`
+  mutation UpdateSubcategory($categoryName: String!, $subcategoryInput: SubcategoryInput!) {
+    updateSubcategory(categoryName: $categoryName, subcategoryInput: $subcategoryInput) {
+      name
+      subcategories {
+        name
+        amount
+      }
+    }
+  }
+`;
+
 // defines GraphQL mutation to update budget amount of specific category
 export const UPDATE_BUDGET = gql`
+  mutation UpdateBudget($category: String!, $amount: Float!) {
+    updateBudget(category: $category, amount: $amount) {
+      category
+      amount
+    }
+  }
+`;
+
+export const GET_BUDGET_BUDGET = gql`
   mutation UpdateBudget($category: String!, $amount: Float!) {
     updateBudget(category: $category, amount: $amount) {
       category
