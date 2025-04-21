@@ -12,7 +12,7 @@ for (const user of users) {
   await newUser.save();   
  
 }
-  console.log('Seed complete!');
+  console.log('Seeding completed successfully!');
   process.exit(0);
 };
 
