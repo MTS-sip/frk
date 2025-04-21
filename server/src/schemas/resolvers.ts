@@ -66,13 +66,27 @@ const resolvers = {
         throw new Error('Username already taken');
       }
     
-      const newUser = new User({ username, password });
-      await newUser.save(); //  triggers password hashing pre('save') Sally 
+      const defaultCategories = [
+        { name: 'Income', subcategories: [] },
+        { name: 'Housing', subcategories: [] },
+        { name: 'Healthcare', subcategories: [] },
+        { name: 'Rnr', subcategories: [] },
+        { name: 'Food', subcategories: [] },
+        { name: 'Transpo', subcategories: [] }
+      ];
+    
+      const newUser = new User({
+        username,
+        password,
+        budget: defaultCategories
+      });
+    
+      await newUser.save();
     
       const token = signToken(newUser.username, newUser._id);
       return { token, user: newUser };
-    },
-
+    }, 
+    
     updateSubcategory: async (
       _parent: any,
       {
