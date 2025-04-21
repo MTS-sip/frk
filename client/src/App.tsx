@@ -45,7 +45,7 @@ const App: React.FC = () => {
         </Menu.Menu>
       </Menu>
 
-      {/* ✅ Full-width background without <Container> */}
+      {/*  Full-width background without <Container> */}
       <div style={{ backgroundColor: '#d0f0c0', minHeight: '100vh', padding: '2em' }}>
         <Outlet />
       </div>
