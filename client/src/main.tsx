@@ -44,7 +44,7 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <RequireAuth><HomeBase /></RequireAuth> },
+      { path: '/', element: <RequireAuth><HomeBase /></RequireAuth> },
       { path: '/uiux', element: <RequireAuth><UiUx /></RequireAuth> },
       { path: '/signup', element: <Signup /> },
       { path: '/login', element: <Login /> },

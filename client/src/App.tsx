@@ -14,7 +14,7 @@ const App: React.FC = () => {
       <Menu style={{ backgroundColor: '#e8d8d8' }} borderless>
 
         {/* Left aligned header title */}
-        <Menu.Item header style={{ color: 'green', fontSize: '3.5em' }}>
+        <Menu.Item header style={{ color: 'green', fontSize: '4.5em' }}>
           Budgetizer
         </Menu.Item>
        
@@ -23,18 +23,29 @@ const App: React.FC = () => {
          <Menu.Menu position="right">
           <Menu.Item>
             <Link to="/signup">
-              <Button basic color="green">Sign up</Button>
+               <Button
+                 basic
+                 color="green"
+                 onClick={() => {
+                 localStorage.removeItem('id_token');
+                 window.location.href = '/login'; // or use useNavigate if inside a component
+                }}
+                 > Logout
+               </Button>
             </Link>
+
           </Menu.Item>
           <Menu.Item>
             <Button basic color="green">Logout</Button>
           </Menu.Item>
         </Menu.Menu>
       </Menu>
-        
+
+   
+
         
         {/* Main content area with light green background */} 
-      <Container style={{ backgroundColor: '#d0f0c0', minHeight: '100vh', padding: '2em' }}>
+      <Container style={{ backgroundColor: '#d0f0c0', minHeight: '100vh', padding: '1em' }}>
         <Outlet />
       </Container>
     </div>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_BUDGET } from '../utils/queries';
 import BudgetTable from '../components/BudgetBalancer/BudgetTable';
 import { Reveal, Image, Modal, Form, Dropdown, Button } from 'semantic-ui-react';
 import InputField from '../components/Common/InputField';
 import SaveButton from '../components/Common/SaveButton';
+import { UPDATE_SUBCATEGORY } from '../utils/mutations';
 
 const HomeBase: React.FC = () => {
   const { loading, error, data, refetch } = useQuery(GET_BUDGET, {
@@ -55,11 +56,30 @@ const HomeBase: React.FC = () => {
   const [newSubcategoryName, setNewSubcategoryName] = useState('');
   const [newSubcategoryAmount, setNewSubcategoryAmount] = useState(0);
 
-  const handleAddSubcategory = () => {
     // Mutation to add a subcategory
-    console.log('Add subcategory for', selectedCategory, newSubcategoryName, newSubcategoryAmount);
-    setModalOpen(false);
-  };
+  const [updateSubcategory] = useMutation(UPDATE_SUBCATEGORY);
+
+  const handleAddSubcategory = async () => {
+    try {
+     await updateSubcategory({
+    variables: {
+      categoryName: selectedCategory,
+       subcategoryInput: {
+        name: newSubcategoryName,
+        amount: newSubcategoryAmount,
+      },
+    },
+  });
+
+  // Optionally refetch budget data after
+  refetch?.();
+  setModalOpen(false);
+  setNewSubcategoryName('');
+  setNewSubcategoryAmount(0);
+} catch (error) {
+  console.error('Failed to update subcategory:', error);
+}
+};
 
   const categoryOptions = [
     { key: 'Income', text: 'Income', value: 'Income' },

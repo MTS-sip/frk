@@ -22,6 +22,7 @@ const typeDefs = gql`
     username: String!
     password: String!
     budget: [Category!]!
+   
   }
 
   type Auth {
