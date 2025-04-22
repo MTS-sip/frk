@@ -15,3 +15,18 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const GET_BUDGET = gql`
+  query GetUser {
+    getUser {
+      username
+      budget {
+        name
+        subcategories {
+          name
+          amount
+        }
+      }
+    }
+  }
+`;
