@@ -46,13 +46,7 @@ const BudgetTable: React.FC<BudgetTableProps> = ({ budget }) => {
       </Table.Header>
 
       <Table.Body>
-        {Object.entries(budgetData).map(([category, amount]) => (
-          <Table.Row key={category}>
-            <Table.Cell>{category}</Table.Cell>
-            <Table.Cell textAlign="right">{amount.toFixed(2)}</Table.Cell>
-          </Table.Row>
-        ))}
-        {/* Inject RunningTotal at the bottom */}
+
         <RunningTotal budgetData={budgetData} />
       </Table.Body>
     </Table>
