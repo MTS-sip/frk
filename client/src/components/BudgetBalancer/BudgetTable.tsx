@@ -1,38 +1,53 @@
 
 import React from 'react';
 import { Table } from 'semantic-ui-react';
-import CategorySection from './CategorySection';
 import RunningTotal from './RunningTotal';
 
-interface BudgetData {
-  Income: number;
-  Housing: number;
-  Healthcare: number;
-  Rnr: number;
-  Food: number;
-  Transpo: number;
+// Example prop type for one user's budget
+interface Subcategory {
+  name: string;
+  amount: number;
+}
+
+interface Category {
+  name: string;
+  subcategories: Subcategory[];
 }
 
 interface BudgetTableProps {
-  budgetData: BudgetData;
+  budget: Category[];
 }
 
-const BudgetTable: React.FC<BudgetTableProps> = ({ budgetData }) => {
+const BudgetTable: React.FC<BudgetTableProps> = ({ budget }) => {
+  // Prepare the budgetData object to pass to RunningTotal
+  const budgetData = {
+    Income: 0,
+    Housing: 0,
+    Healthcare: 0,
+    Rnr: 0,
+    Food: 0,
+    Transpo: 0
+  };
+
+  // Map through the budget array and sum subcategories
+  budget.forEach(category => {
+    const categoryTotal = category.subcategories.reduce((acc, sub) => acc + sub.amount, 0);
+    if (budgetData.hasOwnProperty(category.name as keyof typeof budgetData)) {
+      budgetData[category.name as keyof typeof budgetData] = categoryTotal;
+    }
+  });
+
   return (
-    <Table celled structured>
+    <Table celled>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell>Budget Balancer</Table.HeaderCell>
-          <Table.HeaderCell textAlign="right">$</Table.HeaderCell>
+          <Table.HeaderCell>Category</Table.HeaderCell>
+          <Table.HeaderCell textAlign="right">Total</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
+
       <Table.Body>
-        <CategorySection category="Income" amount={budgetData.Income} />
-        <CategorySection category="Housing" amount={budgetData.Housing} />
-        <CategorySection category="Healthcare" amount={budgetData.Healthcare} />
-        <CategorySection category="Rnr" amount={budgetData.Rnr} />
-        <CategorySection category="Food" amount={budgetData.Food} />
-        <CategorySection category="Transpo" amount={budgetData.Transpo} />
+
         <RunningTotal budgetData={budgetData} />
       </Table.Body>
     </Table>

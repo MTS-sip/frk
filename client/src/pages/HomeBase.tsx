@@ -87,7 +87,7 @@ const HomeBase: React.FC = () => {
 
   return (
     <div>
-      <BudgetTable budgetData={budgetData} />
+      <BudgetTable budget={data.getBudget} />
 
       <Button onClick={() => setModalOpen(true)} primary style={{ marginTop: '1em' }}>
         Add Subcategory
