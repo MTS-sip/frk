@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from 'semantic-ui-react';
 import CategorySection from './CategorySection';
+import RunningTotal from './RunningTotal';
 
 interface Subcategory {
   name: string;
@@ -33,8 +34,6 @@ const BudgetTable: React.FC<BudgetTableProps> = ({ budget }) => {
     { income: 0, expense: 0 }
   );
 
-  const runningTotal = totals.income - totals.expense;
-
   return (
     <Table celled structured>
       <Table.Header>
@@ -43,6 +42,7 @@ const BudgetTable: React.FC<BudgetTableProps> = ({ budget }) => {
           <Table.HeaderCell textAlign="right">Amount ($)</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
+
       <Table.Body>
         {budget.map((category) => (
           <CategorySection
@@ -55,14 +55,7 @@ const BudgetTable: React.FC<BudgetTableProps> = ({ budget }) => {
             }, {} as Record<string, number>)}
           />
         ))}
-        <Table.Row>
-          <Table.Cell>
-            <strong>Total</strong>
-          </Table.Cell>
-          <Table.Cell textAlign="right">
-            <strong>{runningTotal.toFixed(2)}</strong>
-          </Table.Cell>
-        </Table.Row>
+        <RunningTotal income={totals.income} expense={totals.expense} />
       </Table.Body>
     </Table>
   );
