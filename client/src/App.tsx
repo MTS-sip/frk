@@ -16,7 +16,7 @@ const App: React.FC = () => {
   return (
     <div>
       <Menu style={{ backgroundColor: '#e8d8d8' }} borderless>
-        <Menu.Item header style={{ color: 'green', fontSize: '3.5em' }}>
+        <Menu.Item header style={{ color: 'dark green', fontSize: '3.5em' }}>
           Budgetizer
         </Menu.Item>
 
