@@ -26,7 +26,7 @@ MERN app --- NEED DESCRIPTION
 
 ### Images
 
-Mock up image 1
+Mock up image 1.
 
 Mock up image 2
 
