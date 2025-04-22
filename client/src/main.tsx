@@ -1,8 +1,9 @@
 import ReactDOM from 'react-dom/client'; 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import HomeBase from './pages/HomeBase';
 import App from './App';
 import RequireAuth from './utils/RequireAuth';
+import HomeBase from './pages/HomeBase';
+import UiUx from './pages/UiUx'
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import ErrorPage from './pages/Error';
@@ -43,16 +44,13 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <RequireAuth><HomeBase /></RequireAuth>},
-      { path: 'signup', element: <Signup /> },
-      { path: 'login', element: <Login /> },
+      { index: true, element: <RequireAuth><HomeBase /></RequireAuth> },
+      { path: '/uiux', element: <RequireAuth><UiUx /></RequireAuth> },
+      { path: '/signup', element: <Signup /> },
+      { path: '/login', element: <Login /> },
     ],
   },
 ]);
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <RouterProvider router={router} />
-);
 
 //  define rootElement prior to using it
 const rootElement = document.getElementById('root');
