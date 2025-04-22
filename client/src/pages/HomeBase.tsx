@@ -118,7 +118,7 @@ const HomeBase: React.FC = () => {
               value={newSubcategoryAmount}
               onChange={(e) => setNewSubcategoryAmount(Number(e.target.value))}
               placeholder="Enter Amount"
-              type="amount"
+              type="number"
             />
           </Form>
         </Modal.Content>
