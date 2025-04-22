@@ -42,6 +42,7 @@ const BudgetTable: React.FC<BudgetTableProps> = ({ budget }) => {
           <Table.HeaderCell textAlign="right">Amount ($)</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
+      
 
       <Table.Body>
         {budget.map((category) => (
