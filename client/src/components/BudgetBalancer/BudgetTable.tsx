@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Table } from 'semantic-ui-react';
 import RunningTotal from './RunningTotal';
