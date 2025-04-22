@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_USER } from '../utils/queries';
+import { GET_BUDGET } from '../utils/queries';
 import { UPDATE_SUBCATEGORY } from '../utils/mutations';
 import BudgetTable from '../components/BudgetBalancer/BudgetTable';
-import { Reveal, Image, Modal, Form, Dropdown, Button } from 'semantic-ui-react';
+import {  Modal, Form, Dropdown, Button } from 'semantic-ui-react';
 import InputField from '../components/Common/InputField';
 import SaveButton from '../components/Common/SaveButton';
 
 const HomeBase: React.FC = () => {
-  const { loading, error, data, refetch } = useQuery(GET_USER, {
+  const { loading, error, data, refetch } = useQuery(GET_BUDGET, {
     fetchPolicy: 'network-only',
   });
 
@@ -29,33 +29,28 @@ const HomeBase: React.FC = () => {
   });
 
   useEffect(() => {
-    if (data && data.getBudget) {
-      const categoryMap: Record<string, number> = {};
+    if (data?.getBudget) {
+      const formatted = {
+        Income: 0,
+        Housing: 0,
+        Healthcare: 0,
+        Rnr: 0,
+        Food: 0,
+        Transpo: 0
+      };
       data.getBudget.forEach((cat: any) => {
-        categoryMap[cat.name] = cat.subcategories.reduce(
-          (sum: number, sub: any) => sum + sub.amount,
-          0
-        );
+        const total = cat.subcategories.reduce((sum: number, sub: any) => sum + sub.amount, 0);
+        formatted[cat.name as keyof typeof formatted] = total;
       });
-
-      setBudgetData({
-        Income: categoryMap['Income'] || 0,
-        Housing: categoryMap['Housing'] || 0,
-        Healthcare: categoryMap['Healthcare'] || 0,
-        Rnr: categoryMap['Rnr'] || 0,
-        Food: categoryMap['Food'] || 0,
-        Transpo: categoryMap['Transpo'] || 0
-      });
+      setBudgetData(formatted);
     }
   }, [data]);
 
-  // Modal state
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [newSubcategoryName, setNewSubcategoryName] = useState('');
   const [newSubcategoryAmount, setNewSubcategoryAmount] = useState(0);
 
-  // Mutation to add a subcategory
   const [updateSubcategory] = useMutation(UPDATE_SUBCATEGORY);
 
   const handleAddSubcategory = async () => {
@@ -69,8 +64,6 @@ const HomeBase: React.FC = () => {
           },
         },
       });
-
-      // On success
       setModalOpen(false);
       setNewSubcategoryName('');
       setNewSubcategoryAmount(0);
@@ -90,18 +83,11 @@ const HomeBase: React.FC = () => {
   ];
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>An error occured loading budget data.</p>;
+  if (error) return <p>Error loading budget data.</p>;
 
   return (
     <div>
-      <Reveal animated="move">
-        <Reveal.Content visible>
-          <Image src="/assets/placeholder.jpg" fluid />
-        </Reveal.Content>
-        <Reveal.Content hidden>
-          <BudgetTable budgetData={budgetData} />
-        </Reveal.Content>
-      </Reveal>
+      <BudgetTable budgetData={budgetData} />
 
       <Button onClick={() => setModalOpen(true)} primary style={{ marginTop: '1em' }}>
         Add Subcategory
@@ -132,6 +118,7 @@ const HomeBase: React.FC = () => {
               value={newSubcategoryAmount}
               onChange={(e) => setNewSubcategoryAmount(Number(e.target.value))}
               placeholder="Enter Amount"
+              type="number"
             />
           </Form>
         </Modal.Content>
