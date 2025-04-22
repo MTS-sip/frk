@@ -40,15 +40,19 @@ const client = new ApolloClient({
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <App />,
-    errorElement: <ErrorPage />,
-    children: [
-      { index: true, element: <RequireAuth><HomeBase /></RequireAuth> },
-      { path: '/uiux', element: <RequireAuth><UiUx /></RequireAuth> },
-      { path: '/signup', element: <Signup /> },
-      { path: '/login', element: <Login /> },
-    ],
+children: [
+  {
+    index: true,
+    element: (
+      <RequireAuth>
+        <HomeBase />
+      </RequireAuth>
+    ),
+  },
+  { path: '/uiux', element: <UiUx /> },
+  { path: '/signup', element: <Signup /> },
+  { path: '/login', element: <Login /> },
+],
   },
 ]);
 
