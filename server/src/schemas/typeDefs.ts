@@ -9,7 +9,7 @@ type BudgetSummary {
 
 type Query {
   me: User
-  getBudget: [Category!]!
+  getUser: User
   getBudgetSummary: BudgetSummary!
 }
 

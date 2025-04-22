@@ -1,11 +1,11 @@
  import React from 'react';
  import { useParams } from 'react-router-dom';
  import { useQuery } from '@apollo/client';
- import { GET_BUDGET } from '../utils/queries';
+ import { GET_USER } from '../utils/queries';
 
  const UiUx: React.FC = () => {
    const { category } = useParams();
-    const { data, loading, error } = useQuery(GET_BUDGET, {
+    const { data, loading, error } = useQuery(GET_USER, {
     variables: { category }
    });
 

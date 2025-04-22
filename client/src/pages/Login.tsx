@@ -35,6 +35,7 @@ const Login: React.FC = () => {
         label="Username"
         name="username"
         type="text"
+        size="small"
         placeholder="Enter your username"
         value={formState.username}
         onChange={handleChange}
@@ -44,6 +45,8 @@ const Login: React.FC = () => {
         label="Password"
         name="password"
         type="text"
+        size="small"
+        placeholder="Enter your password"
         value={formState.password}
         onChange={handleChange}
         required

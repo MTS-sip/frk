@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_BUDGET } from '../utils/queries';
+import { GET_USER } from '../utils/queries';
 import { UPDATE_SUBCATEGORY } from '../utils/mutations';
 import BudgetTable from '../components/BudgetBalancer/BudgetTable';
 import { Reveal, Image, Modal, Form, Dropdown, Button } from 'semantic-ui-react';
@@ -8,7 +8,7 @@ import InputField from '../components/Common/InputField';
 import SaveButton from '../components/Common/SaveButton';
 
 const HomeBase: React.FC = () => {
-  const { loading, error, data, refetch } = useQuery(GET_BUDGET, {
+  const { loading, error, data, refetch } = useQuery(GET_USER, {
     fetchPolicy: 'network-only',
   });
 
@@ -132,7 +132,6 @@ const HomeBase: React.FC = () => {
               value={newSubcategoryAmount}
               onChange={(e) => setNewSubcategoryAmount(Number(e.target.value))}
               placeholder="Enter Amount"
-              type="number"
             />
           </Form>
         </Modal.Content>

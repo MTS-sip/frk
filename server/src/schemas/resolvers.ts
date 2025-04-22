@@ -2,7 +2,7 @@ import type IUserContext from '../interfaces/UserContext.js';
 import type IUserDocument from '../interfaces/UserDocument.js';
 import { User } from '../models/index.js';
 import { signToken, AuthenticationError } from '../services/auth-service.js';
-import type { ISubcategory, ICategory } from '../models/Budget.js';
+import type { ISubcategory } from '../models/Budget.js';
 
 const resolvers = {
   Query: {
@@ -14,17 +14,21 @@ const resolvers = {
       throw new AuthenticationError('User not authenticated');
     },
 
-    getBudget: async (_parent: unknown, _args: Record<string, unknown>, context: IUserContext): Promise<ICategory[]> => {
+    getUser: async (
+      _parent: unknown,
+      _args: Record<string, unknown>,
+      context: IUserContext
+    ): Promise<IUserDocument> => {
       if (!context.user) {
         throw new AuthenticationError('User not authenticated');
       }
 
-      const user = await User.findById(context.user._id);
-      if (!user || !user.budget) {
-        throw new Error('User or budget not found');
+      const user = await User.findById(context.user._id).select('-__v -password');
+      if (!user) {
+        throw new Error('User not found');
       }
 
-      return user.budget;
+      return user;
     },
 
     getBudgetSummary: async (_parent: unknown, _args: Record<string, unknown>, context: IUserContext) => {
