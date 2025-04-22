@@ -214,6 +214,16 @@ button:-moz-focusring,
   outline: 1px dotted ButtonText;
 }
 
+/*custom Project 3-Budget Table green border*/
+.budget-table {
+  border: 4px solid #50C878; /* Emerald green outer border */
+  border-collapse: collapse;
+}
+
+.budget-table td,
+.budget-table th {
+  border: 2px solid #50C878; /* Inner row/column borders */
+}
 /**
  * Correct the padding in Firefox.
  */
