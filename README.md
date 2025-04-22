@@ -1,147 +1,64 @@
-# 23 Final Project: MERN Stack Single-Page Application
+# Budgetizer
 
-Projects have played a key role in your journey to becoming a software developer. As you apply for development jobs, your portfolio is absolutely vital to opening doors to opportunities. Your portfolio showcases high-quality deployed examples of your work, and you can use your finished projects for that very purpose.
-pp
-This project is a fantastic opportunity to show employers your collaborative skills and coding abilities, especially in the context of a scalable, user-focused MERN app. Remember that employers want to see what you can do, but they also want to see how you work with other developers. The more examples of deployed collaborative work you have in your portfolio, the more likely you are to get an interview and a job.mm
+## Links
 
-## Project Requirements
+- Link 🟢 Deployed URL 🔹 [Budgetizer on RENDER](https:---) 🔹
 
-Your group will use everything you’ve learned throughout this course to create a MERN stack single-page application that works with real-world data to solve a real-world challenge, with a focus on data and user demand. This project will provide you with the best opportunity to demonstrate your problem-solving skills, which employers will want to see during interviews. Once again, the user story and acceptance criteria will depend on the project that you create, but your project must fulfill the following requirements:
+- Link 🔴 GitHub Repository [Budgetizer](https://github.com/MTS-sip/Budgetizer) 🔴
 
-- Use React for the front end.
+## Description
 
-- Use GraphQL with a Node.js and Express.js server.
+MERN app
 
-- Use MongoDB and the Mongoose ODM for the database.
+### Table of Contents
 
-- Use queries and mutations for retrieving, adding, updating, and deleting data.
+- Usage
+- Images
+- License
+- Technology
+- Contributing
+- User Story &
+- Acceptance Criteria
 
-- Be deployed using Render (with data).
+### Usage & Testing
 
-- Use at least one GitHub Action in the project repository.
+- The functionality of this app can be tested directly by visiting [https://prospect-scouter.onrender.com](https://prospect-scouter.onrender.com/)
 
-- Have a polished UI.
+- If the user desires to clone and create their own deployment, the application code can be found at [Prospect-Scouter](https://github.com/MTS-sip/)
 
-- Be responsive.
+### Images
 
-- Be interactive (i.e., accept and respond to user input).
+Mock up image 1
 
-- Include authentication (JWT).
+Mock up image 2
 
-- Protect sensitive API key information on the server.
+### License
 
-- Have a clean repository that meets quality coding standards (file structure, naming conventions, best practices for class and id naming conventions, indentation, high-quality comments, etc.).
+This project is licensed under the MIT<br>
 
-- Have a high-quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-### CSS Styling
+### Technology
 
-Instead of using a CSS library like Bootstrap, consider one of the following suggestions:
+Key technologies used for development:
 
-- Look into the concept of CSS-in-JS, which abstracts CSS to the component level, using JavaScript to describe styles in a declarative and maintainable way. Some popular libraries include [styled-components](https://styled-components.com/) and [Emotion](https://emotion.sh/docs/introduction).
+🔹 **VS Code**: [VSC IDE](https://code.visualstudio.com/)<br>
+🔹. **Semantic UI**:
+🔹 **Render**: [Cloud Application Platform Render](https://render.com/)<br>
+🔹 **GitHub**: [Github](https://github.com/)<br>
+🔹 **Vite**: [ Front end Build Tool for the Web](https://vite.dev/)<br>
+🔹 **Typescript**: [JavaScript w/syntax for types ](https://www.w3schools.com/typescript/typescript_intro.php)<br>
+🔹 **npm**: [Package manager for js](https://www.npmjs.com/)<br>
+🔹 **CoPilot**: [Copilot for GitHub](https://github.com/features/copilot?ef_id=_k_Cj0KCQjw4v6-BhDuARIsALprm30F26jOBa_tX-MdbRzSHmPNFiQCmfhZXt1XYobPc8mf7E3NM44SAmQaAipREALw_wcB_k_&OCID=AIDcmmb150vbv1_SEM__k_Cj0KCQjw4v6-BhDuARIsALprm30F26jOBa_tX-MdbRzSHmPNFiQCmfhZXt1XYobPc8mf7E3NM44SAmQaAipREALw_wcB_k_&gad_source=1&gclid=Cj0KCQjw4v6-BhDuARIsALprm30F26jOBa_tX-MdbRzSHmPNFiQCmfhZXt1XYobPc8mf7E3NM44SAmQaAipREALw_wcB)<br>
+🔹 **ChatGPT**: AI chatbot
+🔹 **Xxpert**: BCS chatbot
+🔹 **HTML**: [Standard Markup language for Web pages](https://www.w3schools.com/html/)<br>
+🔹 **CSS**: [Stylizing for the Web](https://www.w3schools.com/css/)
+🔹 **Dev Tools**:
 
-- Try using a component library, such as [Semantic UI](https://semantic-ui.com/), [Chakra UI](https://chakra-ui.com/), or [Ant Design](https://ant.design/).
+### Contributing
 
-- Create all the CSS for your application just using CSS.
-
-Ultimately, it doesn't matter which of these options you choose&mdash;it just needs to look professional and be mobile-friendly.
-
-### Alternative Project Using Python
-
-You also have the option to replace use Python as your back-end language, which would replace the following requirement:
-
-- Use GraphQL with a Node.js and Express.js server.
-
-> **Important**: If you choose to go this route, please note that this will likely require additional work from your group, as the curriculum doesn't cover full-stack Python applications. Please speak to your instructional team prior to choosing this option.
-
-## Presentation Requirements
-
-Use this [project presentation template](https://docs.google.com/presentation/d/10QaO9KH8HtUXj__81ve0SZcpO5DbMbqqQr4iPpbwKks/edit?usp=sharing) to address the following:
-
-- Elevator pitch: a one minute description of your application
-
-- Concept: What is your user story? What was your motivation for development?
-
-- Process: What were the technologies used? How were tasks and roles broken down and assigned? What challenges did you encounter? What were your successes?
-
-- Demo: Show your stuff!
-
-- Directions for Future Development
-
-- Links to the deployed application and the GitHub repository. Use the [Deploy MERN Stack with Render and MongoDB Atlas guide](https://coding-boot-camp.github.io/full-stack/render/deploy-mern-stack-with-render-guide) on The Full-Stack Blog if you need a reminder on how to deploy to Render.
-
-## Grading Requirements
-
-This project is graded based on the following criteria:
-
-### Technical Acceptance Criteria: 30%
-
-- Satisfies the following code requirements:
-
-  - Application uses React for the front end.
-
-  - Application has a GraphQL API with a Node.js and Express.js server, and uses queries and mutations for retrieving, adding, updating, and deleting data.
-
-    - Or uses Python instead Node.js and Express.js.
-
-  - Application uses MongoDB and the Mongoose ODM for the database and protects sensitive API key information on the server.
-
-  - Application uses at least one GitHub Action in the project repository.
-
-  - Application includes user authentication using JWT.
-
-### Concept 10%
-
-- Application should be a unique and novel idea.
-
-- Your group should clearly and concisely articulate your project idea.
-
-### Deployment: 15%
-
-- Application deployed at live URL on Render and loads with no errors.
-
-- Application GitHub URL submitted.
-
-### Repository Quality: 10%
-
-- Repository has a unique name.
-
-- Repository follows best practices for file structure and naming conventions.
-
-- Repository follows best practices for class and id naming conventions, indentation, quality comments, etc.
-
-- Repository contains multiple descriptive commit messages.
-
-- Repository contains a high-quality README file with description, screenshot, and link to deployed application.
-
-### Application Quality: 15%
-
-- Application user experience is intuitive and easy to navigate.
-
-- Application user interface style is clean and polished.
-
-- Application is responsive.
-
-### Presentation 10%
-
-- Your group should present using a slide deck.
-
-- Every group member should speak during the presentation.
-
-- Your presentation should follow the [Project Presentation Template](https://docs.google.com/presentation/d/10QaO9KH8HtUXj__81ve0SZcpO5DbMbqqQr4iPpbwKks/edit?usp=sharing).
-
-### Collaboration 10%
-
-- There are no major disparities in the number of GitHub contributions between group members.
-
-## How to Submit Your MERN Stack Single-Page Application
-
-**Each member of your group** is required to submit the following for review:
-
-- The URL of the deployed application.
-
-- The URL of the GitHub repository, with a unique name and a README describing the project.
-
----
-
-© 2024 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+MTS-Sip [aka MPossible](https://github.com/MTS-sip)<br>
+Lauren Degraz
+Ben
+BCS (Bootcamp Spot) Lessons Activities Code
