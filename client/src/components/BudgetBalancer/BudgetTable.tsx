@@ -3,7 +3,6 @@ import { Table } from 'semantic-ui-react';
 import CategorySection from './CategorySection';
 import RunningTotal from './RunningTotal';
 
-
 interface BudgetData {
   Income: number;
   Housing: number;
