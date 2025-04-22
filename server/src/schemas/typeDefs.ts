@@ -2,6 +2,17 @@ import { gql } from 'graphql-tag';
 
 const typeDefs = gql`
 
+type BudgetSummary {
+  categories: [Category!]!
+  total: Float!
+}
+
+type Query {
+  me: User
+  getUser: User
+  getBudgetSummary: BudgetSummary!
+}
+
   type Subcategory {
     name: String!
     amount: Float!
@@ -23,6 +34,7 @@ const typeDefs = gql`
     username: String!
     password: String!
     budget: [Category!]!
+   
   }
 
   type Auth {
@@ -30,20 +42,11 @@ const typeDefs = gql`
     user: User
   }
 
-  type Query {
-    me: User
-  }
-
-  input SubcategoryInput {
-    name: String!
-    amount: Float!
-  }
-
   type Mutation {
-    login(email: String!, password: String!): Auth
-    updateSubcategory(categoryId: ID!, subcategoryInput: SubcategoryInput!): Category!
+    login(username: String!, password: String!): Auth
+    signup(username: String!, password: String!): Auth
+    updateSubcategory(categoryName: String!, subcategoryInput: SubcategoryInput!): Category!
   }
-
 `;
 
 export default typeDefs;

@@ -1,25 +1,21 @@
 import db from '../config/connection.js';
 import { User } from '../models/index.js';
-import profileSeeds from './profileData.json' assert { type: "json" };
-import cleanDB from './cleanDB.js';
+import users from './profileData.json' with { type: 'json' };
 
-const seedDatabase = async (): Promise<void> => {
-  try {
-    await db();
-    await cleanDB();
+const seedUsers = async () => {
+  await db();
+  await User.deleteMany();
 
-    await User.insertMany(profileSeeds);
-
-    console.log('Seeding completed successfully!');
-    process.exit(0);
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error('Error seeding database:', error.message);
-    } else {
-      console.error('Unknown error seeding database');
-    }
-    process.exit(1);
-  }
+  
+for (const user of users) {
+  const newUser = new User(user);
+  await newUser.save();   
+ 
+}
+  console.log('Seeding completed successfully!');
+  process.exit(0);
 };
 
-seedDatabase();
+seedUsers();
+
+

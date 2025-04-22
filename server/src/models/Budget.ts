@@ -1,37 +1,31 @@
 import { Schema, model, type Document } from 'mongoose';
 
-interface ISubcategory extends Document {
-    name: string;
-    amount: number;
+// Subcategory interface + schema
+export interface ISubcategory extends Document {
+  name: string;
+  amount: number;
 }
 
-interface ICategory extends Document {
-    name: string;
-    subcategories: [ISubcategory];
-  }
-  
-  const categorySchema = new Schema<ICategory>(
-    {
-        name: {
-            type: String,
-            required: true,
-        },
-        subcategories: [
-            {
-            name: {
-                type: String,
-                required: true,
-            },
-            amount: {
-                type: Number,
-                required: true,
-            },
-            },
-        ],
-    },
-  );
+export const subcategorySchema = new Schema<ISubcategory>({
+  name: { type: String, required: true },
+  amount: { type: Number, required: true },
+});
 
-  const Category = model<ICategory>('Category', categorySchema);
-  
-  export { ICategory, ISubcategory, categorySchema };
-  export default Category;
+// Category interface + schema
+export interface ICategory extends Document {
+  name: string;
+  subcategories: ISubcategory[];
+}
+
+export const categorySchema = new Schema<ICategory>({
+  name: { type: String, required: true },
+  subcategories: {
+    type: [subcategorySchema],
+    default: [],
+    required: true,
+  },
+});
+
+// chs added default export 
+const Category = model<ICategory>('Category', categorySchema);
+export default Category;

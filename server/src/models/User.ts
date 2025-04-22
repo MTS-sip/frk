@@ -27,16 +27,14 @@ const userSchema = new Schema<IUser>(
   },
 );
 
-// hash user password
+// hash user password, but not seeded password data
 userSchema.pre<IUser>('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
-
   next();
 });
-
 // custom method to compare and validate password for logging in
 userSchema.methods.isCorrectPassword = async function (password: string): Promise<boolean> {
   return await bcrypt.compare(password, this.password);
