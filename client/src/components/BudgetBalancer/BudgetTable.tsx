@@ -26,6 +26,7 @@ const BudgetTable: React.FC<BudgetTableProps> = ({ budgetData }) => {
         </Table.Row>
       </Table.Header>
       <Table.Body>
+        <CategorySection category="Total" amount={0} />
         <CategorySection category="Income" amount={budgetData.Income} />
         <CategorySection category="Housing" amount={budgetData.Housing} />
         <CategorySection category="Healthcare" amount={budgetData.Healthcare} />
