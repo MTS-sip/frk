@@ -6,6 +6,7 @@ import BudgetTable from '../components/BudgetBalancer/BudgetTable';
 import { Reveal, Image, Modal, Form, Dropdown, Button } from 'semantic-ui-react';
 import InputField from '../components/Common/InputField';
 import SaveButton from '../components/Common/SaveButton';
+import placeholder from '../assets/placeholder.jpg';
 
 const HomeBase: React.FC = () => {
   const { loading, error, data, refetch } = useQuery(GET_USER, {
@@ -96,7 +97,7 @@ const HomeBase: React.FC = () => {
     <div>
       <Reveal animated="move">
         <Reveal.Content visible>
-          <Image src="/assets/placeholder.jpg" fluid />
+          <Image src={placeholder} fluid />
         </Reveal.Content>
         <Reveal.Content hidden>
           <BudgetTable budgetData={budgetData} />
