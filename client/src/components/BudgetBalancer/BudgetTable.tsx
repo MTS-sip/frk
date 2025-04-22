@@ -18,7 +18,7 @@ interface BudgetTableProps {
 
 const BudgetTable: React.FC<BudgetTableProps> = ({ budgetData }) => {
   return (
-    <Table celled structured>
+    <Table celled structured className="budget-table">
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Budget Balancer</Table.HeaderCell>
