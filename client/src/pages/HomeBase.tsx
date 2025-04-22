@@ -3,7 +3,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { GET_BUDGET } from '../utils/queries';
 import { UPDATE_SUBCATEGORY } from '../utils/mutations';
 import BudgetTable from '../components/BudgetBalancer/BudgetTable';
-import {  Modal, Form, Dropdown, Button } from 'semantic-ui-react';
+import { Modal, Form, Dropdown, Button } from 'semantic-ui-react';
 import InputField from '../components/Common/InputField';
 import SaveButton from '../components/Common/SaveButton';
 
@@ -12,45 +12,21 @@ const HomeBase: React.FC = () => {
     fetchPolicy: 'network-only',
   });
 
-  useEffect(() => {
-    const token = localStorage.getItem('id_token');
-    if (token) {
-      refetch();
-    }
-  }, []);
-
-  const [budgetData, setBudgetData] = useState({
-    Income: 0,
-    Housing: 0,
-    Healthcare: 0,
-    Rnr: 0,
-    Food: 0,
-    Transpo: 0
-  });
+  const [budgetData, setBudgetData] = useState([]);
 
   useEffect(() => {
     if (data?.getBudget) {
-      const formatted = {
-        Income: 0,
-        Housing: 0,
-        Healthcare: 0,
-        Rnr: 0,
-        Food: 0,
-        Transpo: 0
-      };
-      data.getBudget.forEach((cat: any) => {
-        const total = cat.subcategories.reduce((sum: number, sub: any) => sum + sub.amount, 0);
-        formatted[cat.name as keyof typeof formatted] = total;
-      });
-      setBudgetData(formatted);
+      setBudgetData(data.getBudget);
     }
   }, [data]);
 
+  // Modal state
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [newSubcategoryName, setNewSubcategoryName] = useState('');
   const [newSubcategoryAmount, setNewSubcategoryAmount] = useState(0);
 
+  // Mutation to add a subcategory
   const [updateSubcategory] = useMutation(UPDATE_SUBCATEGORY);
 
   const handleAddSubcategory = async () => {
@@ -79,7 +55,7 @@ const HomeBase: React.FC = () => {
     { key: 'Healthcare', text: 'Healthcare', value: 'Healthcare' },
     { key: 'Rnr', text: 'Rnr', value: 'Rnr' },
     { key: 'Food', text: 'Food', value: 'Food' },
-    { key: 'Transpo', text: 'Transpo', value: 'Transpo' }
+    { key: 'Transpo', text: 'Transpo', value: 'Transpo' },
   ];
 
   if (loading) return <p>Loading...</p>;
@@ -87,7 +63,7 @@ const HomeBase: React.FC = () => {
 
   return (
     <div>
-      <BudgetTable budgetData={budgetData} />
+      <BudgetTable budget={budgetData} />
 
       <Button onClick={() => setModalOpen(true)} primary style={{ marginTop: '1em' }}>
         Add Subcategory
@@ -118,7 +94,7 @@ const HomeBase: React.FC = () => {
               value={newSubcategoryAmount}
               onChange={(e) => setNewSubcategoryAmount(Number(e.target.value))}
               placeholder="Enter Amount"
-              type="number"
+              type="amount"
             />
           </Form>
         </Modal.Content>
