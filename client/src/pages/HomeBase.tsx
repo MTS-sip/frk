@@ -19,33 +19,6 @@ const HomeBase: React.FC = () => {
     }
   }, []);
 
-  const [budgetData, setBudgetData] = useState({
-    Income: 0,
-    Housing: 0,
-    Healthcare: 0,
-    Rnr: 0,
-    Food: 0,
-    Transpo: 0
-  });
-
-  useEffect(() => {
-    if (data?.getBudget) {
-      const formatted = {
-        Income: 0,
-        Housing: 0,
-        Healthcare: 0,
-        Rnr: 0,
-        Food: 0,
-        Transpo: 0
-      };
-      data.getBudget.forEach((cat: any) => {
-        const total = cat.subcategories.reduce((sum: number, sub: any) => sum + sub.amount, 0);
-        formatted[cat.name as keyof typeof formatted] = total;
-      });
-      setBudgetData(formatted);
-    }
-  }, [data]);
-
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [newSubcategoryName, setNewSubcategoryName] = useState('');
