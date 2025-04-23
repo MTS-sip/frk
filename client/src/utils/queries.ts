@@ -30,3 +30,12 @@ export const GET_BUDGET = gql`
     }
   }
 `;
+
+
+export const GET_ME = gql`
+  query Me {
+    me {
+      username
+    }
+  }
+`;
