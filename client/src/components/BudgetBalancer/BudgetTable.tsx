@@ -14,22 +14,16 @@ interface BudgetData {
 
 interface BudgetTableProps {
   budgetData: BudgetData;
-  selectedCategory?: string;
-  newSubcategoryName?: string;
-  newSubcategoryAmount?: number;
 }
 
-const BudgetTable: React.FC<BudgetTableProps> = ({
-  budgetData,
- 
-}) => {
+const BudgetTable: React.FC<BudgetTableProps> = ({ budgetData }) => {
   return (
     <>
       <Table celled structured className="budget-table">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Budget Balancer</Table.HeaderCell>
-            <Table.HeaderCell textAlign="right">$</Table.HeaderCell>
+            <Table.HeaderCell textAlign="center">$</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -43,7 +37,6 @@ const BudgetTable: React.FC<BudgetTableProps> = ({
         </Table.Body>
       </Table>
 
-
       {/* Reveal effect placed below table and right-aligned */}
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '2em' }}>
         <div className="ui move up reveal">
@@ -56,7 +49,7 @@ const BudgetTable: React.FC<BudgetTableProps> = ({
           </div>
           <div className="hidden content">
             <img
-              src="/piggie-bank.png"
+              src="/piggie-bank.jpg"
               className="ui small image"
               alt="Piggie Bank Hover"
             />
