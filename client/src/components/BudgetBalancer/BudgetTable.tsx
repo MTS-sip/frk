@@ -45,18 +45,6 @@ const BudgetTable: React.FC<BudgetTableProps> = ({
         </Table.Body>
       </Table>
 
-      {/* NEW: Display selected category details */}
-      <div style={{ marginTop: '2em', padding: '1em', border: '2px dashed green', borderRadius: '8px' }}>
-        <h3>Selected Category: {selectedCategory || 'None'}</h3>
-        {selectedCategory ? (
-          <>
-            <p><strong>Subcategory:</strong> {newSubcategoryName || 'None'}</p>
-            <p><strong>Amount:</strong> {newSubcategoryAmount ? `$${newSubcategoryAmount.toFixed(2)}` : '0.00'}</p>
-          </>
-        ) : (
-          <p>Choose a category and fill in details to add a subcategory.</p>
-        )}
-      </div>
 
       {/* Reveal effect placed below table and right-aligned */}
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '2em' }}>
