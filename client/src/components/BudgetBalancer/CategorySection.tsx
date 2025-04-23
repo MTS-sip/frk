@@ -13,7 +13,9 @@ const CategorySection: React.FC<CategorySectionProps> = ({ category, amount, sub
     <>
       <Table.Row>
         <Table.Cell>{category}</Table.Cell>
-        <Table.Cell textAlign="right">{amount.toFixed(2)}</Table.Cell>
+          <Table.Cell textAlign="center">
+           {amount.toFixed(2)}
+          </Table.Cell>
       </Table.Row>
       {subcategories &&
         Object.entries(subcategories).map(([subKey, subVal]) => (

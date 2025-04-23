@@ -25,9 +25,9 @@ const RunningTotal: React.FC<RunningTotalProps> = ({ budgetData }) => {
       <Table.Cell>
         <strong>Total</strong>
       </Table.Cell>
-      <Table.Cell textAlign="right">
+       <Table.Cell textAlign="center">
         <strong>{runningTotal.toFixed(2)}</strong>
-      </Table.Cell>
+       </Table.Cell>
     </Table.Row>
   );
 };
