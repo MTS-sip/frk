@@ -41,9 +41,9 @@ const BudgetTable: React.FC<BudgetTableProps> = ({ budgetData }) => {
       <div
        style={{
         display: 'flex',
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-start',
         marginTop: '2em',
-        textAlign: 'right', 
+        textAlign: 'left', 
         }}
 >
     <div className="ui move up reveal">
