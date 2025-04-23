@@ -39,3 +39,17 @@ export const GET_ME = gql`
     }
   }
 `;
+
+export const GET_SUBCATEGORIES = gql`
+  query GetSubcategories {
+    getUser {
+      budget {
+        subcategories {
+          name
+          amount
+        }
+      }
+    }
+  }
+`;
+

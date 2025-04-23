@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_BUDGET, GET_ME } from '../utils/queries';
+import { GET_BUDGET, GET_SUBCATEGORIES } from '../utils/queries';
 import { UPDATE_SUBCATEGORY } from '../utils/mutations';
 import BudgetTable from '../components/BudgetBalancer/BudgetTable';
 import { Modal, Form, Dropdown, Button } from 'semantic-ui-react';
@@ -8,19 +8,29 @@ import InputField from '../components/Common/InputField';
 import SaveButton from '../components/Common/SaveButton';
 
 const HomeBase: React.FC = () => {
-  // Budget query
-  const { loading, error, data, refetch } = useQuery(GET_BUDGET, {
+  // Fetch main budget
+  const {
+    loading: loadingBudget,
+    error: errorBudget,
+    data: dataBudget,
+    refetch,
+  } = useQuery(GET_BUDGET, {
     fetchPolicy: 'network-only',
   });
 
-  // User query
+  // Fetch just subcategories (optional)
   const {
-    data: userData,
-    loading: userLoading,
-    error: userError,
-  } = useQuery(GET_ME);
+    data: dataSubcategories,
+    loading: loadingSubcategories,
+    error: errorSubcategories
+  } = useQuery(GET_SUBCATEGORIES);
 
-  // Refetch budget on token load
+  useEffect(() => {
+    if (dataSubcategories) {
+      console.log("All subcategories:", dataSubcategories.getSubcategories);
+    }
+  }, [dataSubcategories]);
+
   useEffect(() => {
     const token = localStorage.getItem('id_token');
     if (token) {
@@ -38,22 +48,24 @@ const HomeBase: React.FC = () => {
   });
 
   useEffect(() => {
-    if (data?.getBudget) {
+    if (dataBudget?.getUser?.budget) {
       const formatted = {
         Income: 0,
         Housing: 0,
         Healthcare: 0,
         Rnr: 0,
         Food: 0,
-        Transpo: 0,
+        Transpo: 0
       };
-      data.getBudget.forEach((cat: any) => {
+
+      dataBudget.getUser.budget.forEach((cat: any) => {
         const total = cat.subcategories.reduce((sum: number, sub: any) => sum + sub.amount, 0);
         formatted[cat.name as keyof typeof formatted] = total;
       });
+
       setBudgetData(formatted);
     }
-  }, [data]);
+  }, [dataBudget]);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -82,25 +94,17 @@ const HomeBase: React.FC = () => {
     }
   };
 
-  const handleButtonClick = () => {
-    if (userData?.me?.username) {
-      alert(`Hello ${userData.me.username}!`);
-    } else {
-      alert('User not found!');
-    }
-  };
-
   const categoryOptions = [
     { key: 'Income', text: 'Income', value: 'Income' },
     { key: 'Housing', text: 'Housing', value: 'Housing' },
     { key: 'Healthcare', text: 'Healthcare', value: 'Healthcare' },
     { key: 'Rnr', text: 'Rnr', value: 'Rnr' },
     { key: 'Food', text: 'Food', value: 'Food' },
-    { key: 'Transpo', text: 'Transpo', value: 'Transpo' },
+    { key: 'Transpo', text: 'Transpo', value: 'Transpo' }
   ];
 
-  if (loading || userLoading) return <p>Loading...</p>;
-  if (error || userError) return <p>Error loading data.</p>;
+  if (loadingBudget || loadingSubcategories) return <p>Loading...</p>;
+  if (errorBudget || errorSubcategories) return <p>Error loading budget or subcategories data.</p>;
 
   return (
     <div>
@@ -143,13 +147,6 @@ const HomeBase: React.FC = () => {
           <SaveButton onClick={handleAddSubcategory} />
         </Modal.Actions>
       </Modal>
-
-      {/* Category Button */}
-      <div style={{ marginTop: '2em', textAlign: 'center' }}>
-        <Button className="ui primary button" onClick={handleButtonClick}>
-          Category
-        </Button>
-      </div>
 
       <div style={{ marginTop: '2em' }}>
         <h3>{selectedCategory || 'Category Details'}</h3>

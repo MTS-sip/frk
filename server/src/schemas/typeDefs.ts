@@ -42,6 +42,15 @@ type Query {
     user: User
   }
 
+  type Query {
+  getSubcategories: [Subcategory]
+}
+
+type Subcategory {
+  name: String!
+  amount: Float!
+}
+
   type Mutation {
     login(username: String!, password: String!): Auth
     signup(username: String!, password: String!): Auth
