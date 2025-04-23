@@ -8,7 +8,7 @@
 
 ## Description
 
-MERN app --- NEED DESCRIPTION
+MERN app --- NEED DESCRi
 
 ### Table of Contents
 
@@ -59,4 +59,5 @@ Key technologies used for development:
 MTS-Sip [aka MPossible](https://github.com/MTS-sip)<br>
 LDegraz [LDegraz](https://github.com/LDegraz)<br>
 bjaegerthomas [bjaegerthomas ](https://github.com/bjaegerthomas)<br>
-BCS (Bootcamp Spot) Lessons Activities Code
+BCS (Bootcamp Spot) Lessons Activities Code<br>jj
+j

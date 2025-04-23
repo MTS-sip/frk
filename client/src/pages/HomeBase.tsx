@@ -1,16 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_BUDGET } from '../utils/queries';
+import { GET_BUDGET, GET_SUBCATEGORIES } from '../utils/queries';
 import { UPDATE_SUBCATEGORY } from '../utils/mutations';
 import BudgetTable from '../components/BudgetBalancer/BudgetTable';
-import {  Modal, Form, Dropdown, Button } from 'semantic-ui-react';
+import { Modal, Form, Dropdown, Button } from 'semantic-ui-react';
 import InputField from '../components/Common/InputField';
 import SaveButton from '../components/Common/SaveButton';
 
 const HomeBase: React.FC = () => {
-  const { loading, error, data, refetch } = useQuery(GET_BUDGET, {
+  // Fetch main budget
+  const {
+    loading: loadingBudget,
+    error: errorBudget,
+    data: dataBudget,
+    refetch,
+  } = useQuery(GET_BUDGET, {
     fetchPolicy: 'network-only',
   });
+
+  // Fetch just subcategories (optional)
+  const {
+    data: dataSubcategories,
+    loading: loadingSubcategories,
+    error: errorSubcategories
+  } = useQuery(GET_SUBCATEGORIES);
+
+  useEffect(() => {
+    if (dataSubcategories) {
+      console.log("All subcategories:", dataSubcategories.getSubcategories);
+    }
+  }, [dataSubcategories]);
 
   useEffect(() => {
     const token = localStorage.getItem('id_token');
@@ -25,11 +44,11 @@ const HomeBase: React.FC = () => {
     Healthcare: 0,
     Rnr: 0,
     Food: 0,
-    Transpo: 0
+    Transpo: 0,
   });
 
   useEffect(() => {
-    if (data?.getBudget) {
+    if (dataBudget?.getUser?.budget) {
       const formatted = {
         Income: 0,
         Housing: 0,
@@ -38,13 +57,15 @@ const HomeBase: React.FC = () => {
         Food: 0,
         Transpo: 0
       };
-      data.getBudget.forEach((cat: any) => {
+
+      dataBudget.getUser.budget.forEach((cat: any) => {
         const total = cat.subcategories.reduce((sum: number, sub: any) => sum + sub.amount, 0);
         formatted[cat.name as keyof typeof formatted] = total;
       });
+
       setBudgetData(formatted);
     }
-  }, [data]);
+  }, [dataBudget]);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -82,8 +103,8 @@ const HomeBase: React.FC = () => {
     { key: 'Transpo', text: 'Transpo', value: 'Transpo' }
   ];
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading budget data.</p>;
+  if (loadingBudget || loadingSubcategories) return <p>Loading...</p>;
+  if (errorBudget || errorSubcategories) return <p>Error loading budget or subcategories data.</p>;
 
   return (
     <div>

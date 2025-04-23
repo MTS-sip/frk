@@ -14,6 +14,23 @@ const resolvers = {
       throw new AuthenticationError('User not authenticated');
     },
 
+    getSubcategories: async (
+      _parent: unknown,
+      _args: Record<string, unknown>,
+      context: IUserContext
+    ): Promise<ISubcategory[]> => {
+      if (!context.user) {
+        throw new AuthenticationError('User not authenticated');
+      }
+    
+      const user = await User.findById(context.user._id);
+      if (!user || !user.budget) throw new Error('User or budget not found');
+    
+      // Flatten subcategories across all categories
+      const allSubcategories = user.budget.flatMap((category) => category.subcategories);
+      return allSubcategories;
+    },
+  
     getUser: async (
       _parent: unknown,
       _args: Record<string, unknown>,
