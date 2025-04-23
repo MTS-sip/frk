@@ -14,16 +14,14 @@ interface BudgetData {
 
 interface BudgetTableProps {
   budgetData: BudgetData;
-  selectedCategory: string;
-  newSubcategoryName: string;
-  newSubcategoryAmount: number;
+  selectedCategory?: string;
+  newSubcategoryName?: string;
+  newSubcategoryAmount?: number;
 }
 
 const BudgetTable: React.FC<BudgetTableProps> = ({
   budgetData,
-  selectedCategory,
-  newSubcategoryName,
-  newSubcategoryAmount
+ 
 }) => {
   return (
     <>
