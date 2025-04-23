@@ -37,26 +37,35 @@ const BudgetTable: React.FC<BudgetTableProps> = ({ budgetData }) => {
         </Table.Body>
       </Table>
 
-      {/* Reveal effect placed below table and right-aligned */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '2em' }}>
-        <div className="ui move up reveal">
-          <div className="visible content">
-            <img
-              src="/budget.png"
-              className="ui small image"
-              alt="budget"
-            />
-          </div>
-          <div className="hidden content">
-            <img
-              src="/piggie-bank.jpg"
-              className="ui small image"
-              alt="Piggie Bank Hover"
-            />
-          </div>
-        </div>
+    {/* Reveal effect */}
+      <div
+       style={{
+        display: 'flex',
+        justifyContent: 'flex-end',
+        marginTop: '2em',
+        textAlign: 'right', 
+        }}
+>
+    <div className="ui move up reveal">
+       <div className="visible content">
+        <img
+          src="/budget.png"
+          className="ui small image"
+          alt="budget"
+          style={{ margin: 0 }} // prevent unwanted spacing
+        />
       </div>
-    </>
+        <div className="hidden content">
+         <img
+           src="/piggie-bank.jpg"
+           className="ui small image"
+           alt="Piggie Bank Hover"
+           style={{ margin: 0 }}
+         />
+      </div>
+     </div>
+    </div>
+  </>
   );
 };
 
